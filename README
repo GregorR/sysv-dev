@@ -1,0 +1,35 @@
+This is a set of headers and CRT files sufficient to do development for the
+original AT&T UNIX System V/386 Release 4.0. I do not have the original C
+compiler for this system, and gave up on finding it. Instead, I used headers
+from the earliest public release of OpenSolaris, and cobbled the crt files by
+extracting them from an actual binary. The include files contain WAY more than
+is necessary, and interfaces for many unsupported APIs. I'm removing things
+only when they break builds, for simplicity sake.
+
+The header files are licensed under the CDDL.
+
+To use this, it must be extracted to a cross compiler prefix. For instance, if
+you intend to build your cross compiler in /opt/cross/i386-sysv4, then this
+belongs in /opt/cross/i386-sysv4/i386-sysv4 .
+
+To build a complete cross compiler:
+
+1) Put this repo in the right path.
+
+2) Put the original libc in the right place:
+    cp .../lib/libc.so.1 /opt/cross/i386-sysv4/i386-sysv4/lib
+    ln -s libc.so.1 /opt/cross/i386-sysv4/i386-sysv4/lib/libc.so
+
+3) Compile the crt files:
+    cd /opt/cross/i386-sysv4/i386-sysv4/lib
+    for crt in *.s; do i386-sysv4-as $crt -o ${crt/.s}.o; done
+
+4) Build and install binutils. Suggested configure:
+    ../configure --prefix /opt/cross/i386-sysv4 --target=i386-sysv4
+
+5) Build and install GCC. Note that the latest version of GCC with support for
+   SVR4 is 4.3.6; later versions would probably work with the i386-elf target,
+   but this is untested. Suggested configure:
+    ../configure --prefix /opt/cross/i386-sysv4 --target=i386-sysv4 \
+        --enable-obsolete --enable-languages=c --disable-threads \
+        --disable-libssp --disable-libgomp

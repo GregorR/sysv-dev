@@ -1,0 +1,57 @@
+Sources are from the earliest public release of OpenSolaris. Headers were
+obtained from:
+
+head (everything)
+uts (things listed in Makefile as header dirs, plus intel/sys, intel/ia32)
+libbc (math.h and floatingpoint.h)
+
+
+Removed directories:
+
+sys/usb
+sys/acpi
+sys/ib
+sys/scsi
+sys/1394
+sys/audio
+sys/lvm
+
+
+Changes:
+
+sys/feature_tests.h is modified to remove _FILE_OFFSET_BITS
+sys/priv.h is modified to remove the include of sys/priv_names.h
+string.h is modified to remove strsignal
+unistd.h is modified to remove gethostname, getdtablesize, setre*, pthread_atfork
+unistd.h is modified to add _abi_ prefix to ftruncate
+iso/ctype_c99.h is removed
+ctype.h is modified to remove the include of iso/ctype_c99.h
+mnttab.h is added with #include <sys/mnttab.h>
+spawn.h is removed
+assert.h is modified to remove __assert_c99
+netdb.h is modified to remove getaddrinfo and related functions, getservby*, gethostby*
+inet/ip6.h is removed
+inet/ap6_asp.h is removed
+arpa/inet.h is modified to remove inet_pton, inet_ntop
+sys/byteorder.h is modified to fix ntohs, htons
+nlist.h is removed
+sys/statfs.h is removed
+sys/time.h is modified to remove gethrtime
+pwd.h is modified to remove *pwent_r functions
+pwd.h is modified to add _abi_ prefix to *pwent functions
+grp.h is modified to remove *grent_r functions
+grp.h is modified to add _abi_ prefix to *grent functions
+signal.h is modified to remove _sys_*, pthread_*
+math.h is modified to make infinity() a #define instead of a function
+sys/select.h is modified to add _abi_ prefix to select
+pthread.h is removed
+semaphore.h is removed
+synch.h is removed
+thread.h is removed
+sys/synch.h is removed
+sys/types.h is modified to remoev pthread*_t
+time.h is modified to remove struct sigevent, timer_*
+sys/siginfo.h is modified to remove struct sigevent
+rpc/ib.h is removed
+mdmn_changelog.h is removed
+meta.h is removed
