@@ -49,7 +49,7 @@ semaphore.h is removed
 synch.h is removed
 thread.h is removed
 sys/synch.h is removed
-sys/types.h is modified to remoev pthread*_t
+sys/types.h is modified to remove pthread*_t, quad_t
 time.h is modified to remove struct sigevent, timer_*
 sys/siginfo.h is modified to remove struct sigevent
 rpc/ib.h is removed
