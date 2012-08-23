@@ -1,0 +1,36 @@
+diff --git a/configure b/configure
+--- a/configure
++++ b/configure
+@@ -2007,7 +2007,7 @@
+ 	esac
+ 	;;
+ 
+-    sunos*|solaris*)
++    sysv4*|sunos*|solaris*)
+ 	targos=sunos
+ 	case "$target_cpu" in
+ 	    i?86) targmach=i386 ;;
+diff --git a/configure.ac b/configure.ac
+--- a/configure.ac
++++ b/configure.ac
+@@ -98,7 +98,7 @@
+ 	esac
+ 	;;
+ 
+-    sunos*|solaris*)
++    sysv4*|sunos*|solaris*)
+ 	targos=sunos
+ 	case "$target_cpu" in
+ 	    i?86) targmach=i386 ;;
+diff --git a/libpcc/quad.h b/libpcc/quad.h
+--- a/libpcc/quad.h
++++ b/libpcc/quad.h
+@@ -72,7 +72,7 @@
+ typedef unsigned long long 	u_quad_t;
+ #endif
+ 
+-#ifdef __SunOS
++#if defined(__SunOS) || defined(__svr4__)
+ typedef long long 		quad_t;
+ typedef unsigned long long 	u_quad_t;
+ #endif

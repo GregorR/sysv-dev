@@ -1,0 +1,35 @@
+diff --git a/configure b/configure
+--- a/configure
++++ b/configure
+@@ -2059,7 +2059,7 @@
+ 	esac
+ 	;;
+ 
+-    sunos*|solaris*)
++    sysv4*|sunos*|solaris*)
+         targos=sunos
+         abi=elf
+         case "$target_cpu" in
+diff --git a/configure.ac b/configure.ac
+--- a/configure.ac
++++ b/configure.ac
+@@ -169,7 +169,7 @@
+ 	esac
+ 	;;
+ 
+-    sunos*|solaris*)
++    sysv4*|sunos*|solaris*)
+         targos=sunos
+         abi=elf
+         case "$target_cpu" in
+diff --git a/mip/compat.h b/mip/compat.h
+--- a/mip/compat.h
++++ b/mip/compat.h
+@@ -7,6 +7,7 @@
+ #define COMPAT_H
+ 
+ #include <string.h>
++#include <stdarg.h>
+ 
+ #ifndef HAVE_STRLCPY
+ size_t strlcpy(char *dst, const char *src, size_t siz);

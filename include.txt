@@ -55,3 +55,4 @@ sys/siginfo.h is modified to remove struct sigevent
 rpc/ib.h is removed
 mdmn_changelog.h is removed
 meta.h is removed
+iso/stdio_c99.h is modified to remove snprintf, vsnprintf
