@@ -382,13 +382,14 @@ int settimeofday();
 
 #if defined(__STDC__)
 #if defined(_SVID_GETTOD)
-int gettimeofday(struct timeval *);
+int _abi_gettimeofday(struct timeval *);
 #else
-int gettimeofday(struct timeval *_RESTRICT_KYWD, void *_RESTRICT_KYWD);
+int _abi_gettimeofday(struct timeval *_RESTRICT_KYWD, void *_RESTRICT_KYWD);
 #endif
 #else /* __STDC__ */
-int gettimeofday();
+int _abi_gettimeofday();
 #endif /* __STDC__ */
+#define gettimeofday _abi_gettimeofday
 
 #endif /* !defined(_KERNEL) && !defined(__XOPEN_OR_POSIX) ... */
 

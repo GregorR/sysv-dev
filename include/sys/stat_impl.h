@@ -58,7 +58,8 @@ extern int fstatat(int, const char *, struct stat *, int);
 #endif /* defined (_ATFILE_SOURCE) */
 
 #if _FILE_OFFSET_BITS == 32 && !defined(_LP64) && !defined(__lint)
-static int fstat(int, struct stat *);
+static int _fstat(int, struct stat *);
+#define fstat _fstat
 static int stat(const char *_RESTRICT_KYWD, struct stat *_RESTRICT_KYWD);
 int _fxstat(const int, int, struct stat *);
 int _xstat(const int, const char *, struct stat *);

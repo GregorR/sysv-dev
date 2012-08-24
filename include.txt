@@ -19,9 +19,9 @@ sys/lvm
 
 Changes:
 
-sys/feature_tests.h is modified to remove _FILE_OFFSET_BITS
+sys/feature_tests.h is modified to remove _FILE_OFFSET_BITS, _LARGEFILE64_SOURCE
 sys/priv.h is modified to remove the include of sys/priv_names.h
-string.h is modified to remove strsignal
+string.h is modified to remove strsignal, strcasecmp, strncasecmp
 unistd.h is modified to remove gethostname, getdtablesize, setre*, pthread_atfork
 unistd.h is modified to add _abi_ prefix to ftruncate
 iso/ctype_c99.h is removed
@@ -37,11 +37,12 @@ sys/byteorder.h is modified to fix ntohs, htons
 nlist.h is removed
 sys/statfs.h is removed
 sys/time.h is modified to remove gethrtime
+sys/time.h is modified to add _abi_ prefix to gettimeofday
 pwd.h is modified to remove *pwent_r functions
 pwd.h is modified to add _abi_ prefix to *pwent functions
 grp.h is modified to remove *grent_r functions
 grp.h is modified to add _abi_ prefix to *grent functions
-signal.h is modified to remove _sys_*, pthread_*
+signal.h is modified to remove _sys_*, pthread_*, killpg, siginterrupt
 math.h is modified to make infinity() a #define instead of a function
 sys/select.h is modified to add _abi_ prefix to select
 pthread.h is removed
@@ -56,3 +57,6 @@ rpc/ib.h is removed
 mdmn_changelog.h is removed
 meta.h is removed
 iso/stdio_c99.h is modified to remove snprintf, vsnprintf
+strings.h is modified to remove strcasecmp, strncasecmp, bcmp, bcopy, bzero
+iso/stdlib_c99.h is removed
+sdlib.h is modified to remove the include of iso/stdlib_c99.h>

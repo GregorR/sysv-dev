@@ -42,10 +42,6 @@ extern "C" {
 
 #if defined(__STDC__)
 
-extern int bcmp(const void *, const void *, size_t);
-extern void bcopy(const void *, void *, size_t);
-extern void bzero(void *, size_t);
-
 extern char *index(const char *, int);
 extern char *rindex(const char *, int);
 
@@ -61,8 +57,6 @@ extern char *rindex(const char *, int);
  */
 #if defined(_XPG4_2) && !defined(__EXTENSIONS__)
 extern int ffs(int);
-extern int strcasecmp(const char *, const char *);
-extern int strncasecmp(const char *, const char *, size_t);
 #endif	/* defined(_XPG4_2) && !defined(__EXTENSIONS__) */
 
 #else
@@ -76,8 +70,6 @@ extern char *rindex();
 
 #if defined(_XPG4_2) && !defined(__EXTENSIONS__)
 extern int ffs();
-extern int strcasecmp();
-extern int strncasecmp();
 #endif /* defined(_XPG4_2) && !defined(__EXTENSIONS__) */
 
 #endif	/* __STDC__ */

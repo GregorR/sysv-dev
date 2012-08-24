@@ -1,0 +1,24 @@
+diff --git a/execute_cmd.c b/execute_cmd.c
+--- a/execute_cmd.c
++++ b/execute_cmd.c
+@@ -2202,7 +2202,7 @@
+   /* If the `lastpipe' option is set with shopt, and job control is not
+      enabled, execute the last element of non-async pipelines in the
+      current shell environment. */
+-  if (lastpipe_opt && job_control == 0 && asynchronous == 0 && pipe_out == NO_PIPE && prev > 0)
++  if (lastpipe_opt /*&& job_control == 0*/ && asynchronous == 0 && pipe_out == NO_PIPE && prev > 0)
+     {
+       lstdin = move_to_high_fd (0, 0, 255);
+       if (lstdin > 0)
+diff --git a/lib/readline/util.c b/lib/readline/util.c
+--- a/lib/readline/util.c
++++ b/lib/readline/util.c
+@@ -389,7 +389,7 @@
+         break;
+       s2++;
+     }
+-  while (--count != 0)
++  while (--count != 0);
+ 
+   return (0);
+ }

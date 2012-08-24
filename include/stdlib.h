@@ -34,7 +34,6 @@
 #pragma ident	"%Z%%M%	%I%	%E% SMI"	/* SVr4.0 1.22	*/
 
 #include <iso/stdlib_iso.h>
-#include <iso/stdlib_c99.h>
 
 #if defined(__EXTENSIONS__) || defined(_XPG4)
 #include <sys/wait.h>

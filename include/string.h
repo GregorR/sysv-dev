@@ -93,8 +93,6 @@ extern void *memccpy(void *_RESTRICT_KYWD, const void *_RESTRICT_KYWD,
 #if defined(__EXTENSIONS__) || \
 	(!defined(_STRICT_STDC) && !defined(__XOPEN_OR_POSIX))
 extern int ffs(int);
-extern int strcasecmp(const char *, const char *);
-extern int strncasecmp(const char *, const char *, size_t);
 extern size_t strlcpy(char *, const char *, size_t);
 extern size_t strlcat(char *, const char *, size_t);
 #endif /* defined(__EXTENSIONS__)... */
@@ -124,8 +122,6 @@ extern void *memccpy();
 
 #if defined(__EXTENSIONS__) || !defined(__XOPEN_OR_POSIX)
 extern int ffs();
-extern int strcasecmp();
-extern int strncasecmp();
 extern size_t strlcpy();
 extern size_t strlcat();
 #endif /* defined(__EXTENSIONS__) ... */

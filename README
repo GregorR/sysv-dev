@@ -33,3 +33,6 @@ To build a complete cross compiler:
     ../configure --prefix /opt/cross/i386-sysv4 --target=i386-sysv4 \
         --enable-obsolete --enable-languages=c --disable-threads \
         --disable-libssp --disable-libgomp
+
+6) Remove the broken "fixed" headers:
+    rm -rf /opt/cross/i386-sysv4/lib/gcc/i386-sysv4/4.3.6/include-fixed
