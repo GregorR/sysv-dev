@@ -1,5 +1,7 @@
 .global _start
+.global __start
 _start:
+__start:
     push   $0x0
     push   $0x0
     mov    %esp,%ebp
