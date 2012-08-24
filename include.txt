@@ -60,3 +60,4 @@ iso/stdio_c99.h is modified to remove snprintf, vsnprintf
 strings.h is modified to remove strcasecmp, strncasecmp, bcmp, bcopy, bzero
 iso/stdlib_c99.h is removed
 sdlib.h is modified to remove the include of iso/stdlib_c99.h>
+sys/stat.h is modified to remove struct stat64*

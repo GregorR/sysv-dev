@@ -88,23 +88,6 @@ struct stat {
 	char		st_fstype[_ST_FSTYPSZ];
 };
 
-struct stat64 {
-	dev_t		st_dev;
-	ino_t		st_ino;
-	mode_t		st_mode;
-	nlink_t		st_nlink;
-	uid_t		st_uid;
-	gid_t		st_gid;
-	dev_t		st_rdev;
-	off_t		st_size;
-	timestruc_t	st_atim;
-	timestruc_t	st_mtim;
-	timestruc_t	st_ctim;
-	blksize_t	st_blksize;
-	blkcnt_t	st_blocks;
-	char		st_fstype[_ST_FSTYPSZ];
-};
-
 #else	/* _LP64 */
 
 struct	stat {
@@ -272,65 +255,6 @@ struct	stat {
 
 #endif	/* _LP64 */
 
-/* transitional large file interface version */
-#if	defined(_LARGEFILE64_SOURCE) && !((_FILE_OFFSET_BITS == 64) && \
-	    !defined(__PRAGMA_REDEFINE_EXTNAME))
-#if defined(_LP64)
-
-struct stat64 {
-	dev_t		st_dev;
-	ino_t		st_ino;
-	mode_t		st_mode;
-	nlink_t		st_nlink;
-	uid_t		st_uid;
-	gid_t		st_gid;
-	dev_t		st_rdev;
-	off_t		st_size;
-#if !defined(__XOPEN_OR_POSIX) || defined(__EXTENSIONS__)
-	timestruc_t	st_atim;
-	timestruc_t	st_mtim;
-	timestruc_t	st_ctim;
-#else
-	_timestruc_t	st_atim;
-	_timestruc_t	st_mtim;
-	_timestruc_t	st_ctim;
-#endif
-	blksize_t	st_blksize;
-	blkcnt_t	st_blocks;
-	char		st_fstype[_ST_FSTYPSZ];
-};
-
-#else	/* _LP64 */
-
-struct	stat64 {
-	dev_t		st_dev;
-	long		st_pad1[3];	/* reserved for network id */
-	ino64_t		st_ino;
-	mode_t		st_mode;
-	nlink_t		st_nlink;
-	uid_t		st_uid;
-	gid_t		st_gid;
-	dev_t		st_rdev;
-	long		st_pad2[2];
-	off64_t		st_size;
-#if !defined(__XOPEN_OR_POSIX) || defined(__EXTENSIONS__)
-	timestruc_t	st_atim;
-	timestruc_t	st_mtim;
-	timestruc_t	st_ctim;
-#else
-	_timestruc_t    st_atim;
-	_timestruc_t    st_mtim;
-	_timestruc_t    st_ctim;
-#endif
-	blksize_t	st_blksize;
-	blkcnt64_t	st_blocks;
-	char		st_fstype[_ST_FSTYPSZ];
-	long		st_pad4[8];	/* expansion area */
-};
-
-#endif	/* _LP64 */
-#endif
-
 #if !defined(__XOPEN_OR_POSIX) || defined(__EXTENSIONS__)
 #define	st_atime	st_atim.tv_sec
 #define	st_mtime	st_mtim.tv_sec
@@ -369,34 +293,6 @@ struct stat32 {
 	char		st_fstype[_ST_FSTYPSZ];
 	int32_t		st_pad4[8];
 };
-
-#if _LONG_LONG_ALIGNMENT == 8 && _LONG_LONG_ALIGNMENT_32 == 4
-#pragma pack(4)
-#endif
-
-struct stat64_32 {
-	dev32_t		st_dev;
-	int32_t		st_pad1[3];
-	ino64_t		st_ino;
-	mode32_t	st_mode;
-	nlink32_t	st_nlink;
-	uid32_t		st_uid;
-	gid32_t		st_gid;
-	dev32_t		st_rdev;
-	int32_t		st_pad2[2];
-	off64_t		st_size;
-	timestruc32_t	st_atim;
-	timestruc32_t	st_mtim;
-	timestruc32_t	st_ctim;
-	int32_t		st_blksize;
-	blkcnt64_t	st_blocks;
-	char		st_fstype[_ST_FSTYPSZ];
-	int32_t		st_pad4[8];
-};
-
-#if _LONG_LONG_ALIGNMENT == 8 && _LONG_LONG_ALIGNMENT_32 == 4
-#pragma pack()
-#endif
 
 #endif	/* _SYSCALL32 */
 
@@ -486,18 +382,6 @@ extern int chmod(const char *, mode_t);
 extern int mkdir(const char *, mode_t);
 extern int mkfifo(const char *, mode_t);
 extern mode_t umask(mode_t);
-
-/* transitional large file interfaces */
-#if	defined(_LARGEFILE64_SOURCE) && !((_FILE_OFFSET_BITS == 64) && \
-	    !defined(__PRAGMA_REDEFINE_EXTNAME))
-extern int fstat64(int, struct stat64 *);
-extern int stat64(const char *_RESTRICT_KYWD, struct stat64 *_RESTRICT_KYWD);
-extern int lstat64(const char *_RESTRICT_KYWD, struct stat64 *_RESTRICT_KYWD);
-#if !defined(__XOPEN_OR_POSIX) || defined(__EXTENSIONS__) || \
-	defined(_ATFILE_SOURCE)
-extern int fstatat64(int, const char *, struct stat64 *, int);
-#endif /* defined (_ATFILE_SOURCE) */
-#endif
 
 #else /* !__STDC__ */
 
