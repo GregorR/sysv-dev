@@ -1,6 +1,6 @@
-diff --git a/configure b/configure
---- a/configure
-+++ b/configure
+diff -r f33f7a9fc7ac configure
+--- a/configure	Thu Aug 23 19:33:42 2012 -0400
++++ b/configure	Fri Aug 24 10:13:18 2012 -0400
 @@ -2059,6 +2059,14 @@
  	esac
  	;;
@@ -16,9 +16,9 @@ diff --git a/configure b/configure
      sunos*|solaris*)
          targos=sunos
          abi=elf
-diff --git a/configure.ac b/configure.ac
---- a/configure.ac
-+++ b/configure.ac
+diff -r f33f7a9fc7ac configure.ac
+--- a/configure.ac	Thu Aug 23 19:33:42 2012 -0400
++++ b/configure.ac	Fri Aug 24 10:13:18 2012 -0400
 @@ -169,6 +169,14 @@
  	esac
  	;;
@@ -34,9 +34,9 @@ diff --git a/configure.ac b/configure.ac
      sunos*|solaris*)
          targos=sunos
          abi=elf
-diff --git a/mip/compat.h b/mip/compat.h
---- a/mip/compat.h
-+++ b/mip/compat.h
+diff -r f33f7a9fc7ac mip/compat.h
+--- a/mip/compat.h	Thu Aug 23 19:33:42 2012 -0400
++++ b/mip/compat.h	Fri Aug 24 10:13:18 2012 -0400
 @@ -7,6 +7,7 @@
  #define COMPAT_H
  
@@ -45,45 +45,70 @@ diff --git a/mip/compat.h b/mip/compat.h
  
  #ifndef HAVE_STRLCPY
  size_t strlcpy(char *dst, const char *src, size_t siz);
-diff --git a/os/sunos/ccconfig.h b/os/sysv4/ccconfig.h
-copy from os/sunos/ccconfig.h
-copy to os/sysv4/ccconfig.h
---- a/os/sunos/ccconfig.h
-+++ b/os/sysv4/ccconfig.h
-@@ -1,7 +1,6 @@
--/*	$Id: ccconfig.h,v 1.3 2009/05/19 05:15:38 gmcgarry Exp $	*/
--
- /*
-  * Copyright (c) 2008 Adam Hoka.
+diff -r f33f7a9fc7ac os/sysv4/ccconfig.h
+--- /dev/null	Thu Jan 01 00:00:00 1970 +0000
++++ b/os/sysv4/ccconfig.h	Fri Aug 24 10:13:18 2012 -0400
+@@ -0,0 +1,63 @@
++/*
++ * Copyright (c) 2008 Adam Hoka.
 + * Modified from sunos files slightly by Gregor Richards.
-  * All rights reserved.
-  *
-  * Redistribution and use in source and binary forms, with or without
-@@ -36,7 +35,7 @@
- #endif
- 
- /* common cpp predefines */
--#define	CPPADD	{ "-Dunix", "-Dsun", "-D__SVR4", "-D__unix", "-D__sun", "-D__SunOS", "-D__ELF__", NULL }
++ * All rights reserved.
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in the
++ *    documentation and/or other materials provided with the distribution.
++ * 3. The name of the author may not be used to endorse or promote products
++ *    derived from this software without specific prior written permission
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
++ * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
++ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
++ * IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
++ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
++ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
++ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
++ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
++ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
++ * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++/*
++ * Various settings that controls how the C compiler works.
++ */
++
++#ifndef LIBDIR
++#define LIBDIR "/usr/lib/"
++#endif
++
++/* common cpp predefines */
 +#define	CPPADD	{ "-Dunix", "-D__SVR4", "-D__unix", "-D__svr4__", "-D__ELF__", NULL }
- 
- /* TODO: _ _SunOS_5_6, _ _SunOS_5_7, _ _SunOS_5_8, _ _SunOS_5_9, _ _SunOS_5_10 */
- 
-@@ -54,16 +53,11 @@
- #define F77LIBLIST { "-L/usr/local/lib", "-lF77", "-lI77", "-lm", "-lc", NULL };
- #endif
- 
--/* host-independent */
--#define	DYNLINKER { "-Bdynamic", "/usr/lib/ld.so", NULL }
++
++/* host-dependent */
++#define CRT0FILE LIBDIR "crt1.o"
++#define CRT0FILE_PROFILE LIBDIR "gcrt1.o"
++#define STARTFILES { LIBDIR "crti.o", NULL }
++#define	ENDFILES { LIBDIR "crtn.o", NULL }
++/* shared libraries linker files */
++#define STARTFILES_S { LIBDIR "crti.o", NULL }
++#define	ENDFILES_S { LIBDIR "crtn.o", NULL }
++#define LIBCLIBS { "-lc", "-lpcc", NULL }
++
++#ifdef LANG_F77
++#define F77LIBLIST { "-L/usr/local/lib", "-lF77", "-lI77", "-lm", "-lc", NULL };
++#endif
++
 +/* assumes GNU ld */
 +#define	DYNLINKER { "--dynamic-linker", "/usr/lib/ld.so.1", NULL }
- 
- #if defined(mach_i386)
- #define	CPPMDADD { "-D__i386__", "-D__i386", NULL, }
--/* Let's keep it here in case of Polaris. ;) */
--#elif defined(mach_powerpc)
--#define	CPPMDADD { "-D__ppc__", NULL, }
--#elif defined(mach_sparc64)
--#define CPPMDADD { "-D__sparc64__", "-D__sparc", NULL, }
- #else
- #error defines for arch missing
- #endif
++
++#if defined(mach_i386)
++#define	CPPMDADD { "-D__i386__", "-D__i386", NULL, }
++#else
++#error defines for arch missing
++#endif
++
++#define	STABS

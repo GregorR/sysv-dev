@@ -1,6 +1,6 @@
-diff --git a/configure b/configure
---- a/configure
-+++ b/configure
+diff -r 6bc67b489684 configure
+--- a/configure	Thu Aug 23 19:40:19 2012 -0400
++++ b/configure	Fri Aug 24 10:14:34 2012 -0400
 @@ -2007,7 +2007,7 @@
  	esac
  	;;
@@ -10,9 +10,9 @@ diff --git a/configure b/configure
  	targos=sunos
  	case "$target_cpu" in
  	    i?86) targmach=i386 ;;
-diff --git a/configure.ac b/configure.ac
---- a/configure.ac
-+++ b/configure.ac
+diff -r 6bc67b489684 configure.ac
+--- a/configure.ac	Thu Aug 23 19:40:19 2012 -0400
++++ b/configure.ac	Fri Aug 24 10:14:34 2012 -0400
 @@ -98,7 +98,7 @@
  	esac
  	;;
@@ -22,9 +22,9 @@ diff --git a/configure.ac b/configure.ac
  	targos=sunos
  	case "$target_cpu" in
  	    i?86) targmach=i386 ;;
-diff --git a/libpcc/quad.h b/libpcc/quad.h
---- a/libpcc/quad.h
-+++ b/libpcc/quad.h
+diff -r 6bc67b489684 libpcc/quad.h
+--- a/libpcc/quad.h	Thu Aug 23 19:40:19 2012 -0400
++++ b/libpcc/quad.h	Fri Aug 24 10:14:34 2012 -0400
 @@ -72,7 +72,7 @@
  typedef unsigned long long 	u_quad_t;
  #endif
